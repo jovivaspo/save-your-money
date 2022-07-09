@@ -1,4 +1,0 @@
-requests
-matplotlib
-selenium
-chromium-chromedriver
