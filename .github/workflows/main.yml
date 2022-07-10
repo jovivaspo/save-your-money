@@ -21,10 +21,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2.0.0
         with:
-          python-version: '3.7'
+          python-version: '3.9'
+      - name: Installed package list
+        run: apt list --installed
+      - name: Remove Chrome
+        run: sudo apt purge google-chrome-stable
       - name: Install requirements
         run: pip install -r requirements.txt
-      - name: Install chromium
-        run: apt install chromium-chromedriver
       - name: Run Scraper
         run: python saver.py
