@@ -123,7 +123,6 @@ email_username = me
 email_password = 'glliugnpedhfthca'
 
 try: 
-
   email_body = "<h1>Save your fucking money!</h1>" + "<h2>Precio luz mercado regulado " + date_luz + "</h2>"  + "<p><strong>" + msg_best_price + "</strong></p>" + "<img src='cid:image1'>" + "<h2>Gasolineras más baratas hoy en Badajoz: </h2>" + msg_petrol
 
   msg = MIMEMultipart('alternative')
@@ -146,5 +145,5 @@ try:
   server.sendmail(me, recipient, msg.as_string())
   server.close()
   
- except:
+except:
    print("Error al enviar el correo")
