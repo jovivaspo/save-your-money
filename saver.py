@@ -104,7 +104,7 @@ try:
   print(msg_petrol)
 
 except:
-  print("Algo salió mal")
+   print("Error al scrapear los precios de la gasolina")
   
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -122,24 +122,29 @@ port = 587
 email_username = me
 email_password = 'glliugnpedhfthca'
 
-email_body = "<h1>Save your fucking money!</h1>" + "<h2>Precio luz mercado regulado " + date_luz + "</h2>"  + "<p><strong>" + msg_best_price + "</strong></p>" + "<img src='cid:image1'>" + "<h2>Gasolineras más baratas hoy en Badajoz: </h2>" + msg_petrol
+try: 
 
-msg = MIMEMultipart('alternative')
-msg['From'] = me
-msg['To'] = recipient
-msg['Subject'] = subject
+  email_body = "<h1>Save your fucking money!</h1>" + "<h2>Precio luz mercado regulado " + date_luz + "</h2>"  + "<p><strong>" + msg_best_price + "</strong></p>" + "<img src='cid:image1'>" + "<h2>Gasolineras más baratas hoy en Badajoz: </h2>" + msg_petrol
 
-msg.attach(MIMEText(email_body, 'html'))
+  msg = MIMEMultipart('alternative')
+  msg['From'] = me
+  msg['To'] = recipient
+  msg['Subject'] = subject
 
-fp = open('Gráfica.jpg','rb')
-msgImage = MIMEImage(fp.read())
-fp.close()
-msgImage.add_header('Content-ID', '<image1>')
-msg.attach(msgImage)
+  msg.attach(MIMEText(email_body, 'html'))
 
-server = smtplib.SMTP(email_server_host, port)
-server.ehlo()
-server.starttls()
-server.login(email_username, email_password)
-server.sendmail(me, recipient, msg.as_string())
-server.close()
+  fp = open('Gráfica.jpg','rb')
+  msgImage = MIMEImage(fp.read())
+  fp.close()
+  msgImage.add_header('Content-ID', '<image1>')
+  msg.attach(msgImage)
+
+  server = smtplib.SMTP(email_server_host, port)
+  server.ehlo()
+  server.starttls()
+  server.login(email_username, email_password)
+  server.sendmail(me, recipient, msg.as_string())
+  server.close()
+  
+ except:
+   print("Error al enviar el correo")
