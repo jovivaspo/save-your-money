@@ -29,20 +29,25 @@ plt.ylabel("€/kWh")
 plt.savefig("Gráfica.jpg")
 plt.show()
 
-import sys
-sys.path.insert(0,'/usr/lib/chromium-browser/chromedriver')
-from selenium import webdriver
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-wd = webdriver.Chrome('chromedriver',options=options)
 
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
+
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+
+wd = webdriver.Chrome(service=chrome_service,options=options)
 
 
 url_gasolina = "https://www.dieselogasolina.com/gasolineras-en-badajoz-localidad-badajoz.html"
