@@ -42,13 +42,20 @@ from webdriver_manager.core.utils import ChromeType
 
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
+chrome_options = Options()
+options = [
+    "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    "--disable-extensions",
+    "--no-sandbox",
+    "--disable-dev-shm-usage"
+]
+for option in options:
+    chrome_options.add_argument(option)
 
-wd = webdriver.Chrome(service=chrome_service,options=options)
-
+wd = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 url_gasolina = "https://www.dieselogasolina.com/gasolineras-en-badajoz-localidad-badajoz.html"
 wd.get(url_gasolina)
