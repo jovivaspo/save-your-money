@@ -36,11 +36,11 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.service import Service
+
+from selenium.webdriver.chrome.service import Service as ChromiumService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.utils import ChromeType
 
-chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
 options = [
@@ -55,7 +55,8 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
-wd = webdriver.Chrome(service=chrome_service, options=chrome_options)
+chrome_service = ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM))
+wd = webdriver.Chrome(service=chrome_service, options=chrome_options)).install()
 
 url_gasolina = "https://www.dieselogasolina.com/gasolineras-en-badajoz-localidad-badajoz.html"
 wd.get(url_gasolina)
