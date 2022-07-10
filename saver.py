@@ -77,34 +77,40 @@ try:
 except TimeoutException:
     print("Se vencio el timeout")
 
-   
+import time
+
+time.sleep(10) # take a pause 10 seconds
+
 try:
-  precios = wd.find_elements(By.CLASS_NAME, "precio")
   rows = wd.find_elements(By.CLASS_NAME, "trgasolinera")
   data_petrol=[]
   titles = ["Dirección", "Horario", "Empresa", "Fecha", "Precio"]
-  msg_petrol = '<table><thead><tr></tr></thead><tbody>'
+  msg_petrol = '<table><thead><tr>'
+
   for el in titles:
     msg_petrol= msg_petrol + "<th style='text-align:center; padding:10px'>" + el + "</th>"
+
   msg_petrol = msg_petrol + '</tr></thead><tbody>'
   for row in rows:
-    direction = row.find_element(By.CLASS_NAME,"direccion")
-    time = row.find_element(By.CLASS_NAME, "horario")
-    company = row.find_element(By.CLASS_NAME, "empresa")
-    date = row.find_element(By.CLASS_NAME, "fecha_actualizacion")
-    price= row.find_element(By.CSS_SELECTOR, ".precio")
-    msg_petrol =  msg_petrol +  "<tr>"
-    msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + direction.text + "</td>"
-    msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + time.text + "</td>"
-    msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + company.text + "</td>"
-    msg_petrol =  msg_petrol + "<tdstyle='text-align:center; padding:10px'>" + date.text + "</td>"
-    msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'><strong>" + price.text + "</strong></td></tr>"
+      direction = row.find_element(By.CLASS_NAME,"direccion")
+      time = row.find_element(By.CLASS_NAME, "horario")
+      company = row.find_element(By.CLASS_NAME, "empresa")
+      price= row.find_element(By.CSS_SELECTOR, ".precio")
+      date = row.find_element(By.CSS_SELECTOR, ".fecha_actualizacion")
+      msg_petrol =  msg_petrol +  "<tr>"
+      msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + direction.text + "</td>"
+      msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + time.text + "</td>"
+      msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'>" + company.text + "</td>"
+      msg_petrol =  msg_petrol + "<tdstyle='text-align:center; padding:10px'>" + date.text + "</td>"
+      msg_petrol =  msg_petrol  + "<td style='text-align:center; padding:10px'><strong>" + price.text + "</strong></td></tr>"
 
   msg_petrol =  msg_petrol + "</tbody>"
   print(msg_petrol)
 
 except:
-   print("Error al scrapear los precios de la gasolina")
+  print("Error al tomar precio de la gasolina")
+  print("Oops!", sys.exc_info()[0], "occurred.")
+
   
 import smtplib
 from email.mime.multipart import MIMEMultipart
