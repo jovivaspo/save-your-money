@@ -56,7 +56,7 @@ for option in options:
     chrome_options.add_argument(option)
 
 chrome_service = ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM))
-wd = webdriver.Chrome(service=chrome_service, options=chrome_options)).install()
+wd = webdriver.Chrome(service=chrome_service, options=chrome_options).install()
 
 url_gasolina = "https://www.dieselogasolina.com/gasolineras-en-badajoz-localidad-badajoz.html"
 wd.get(url_gasolina)
